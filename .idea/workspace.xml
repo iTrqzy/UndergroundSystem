@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ad0b47a-a490-4522-871a-52be5dded98e" name="Changes" comment="Added Coursework Dir">
-      <change afterPath="$PROJECT_DIR$/Coursework/Task1CLRS/all_pairs_shortest_paths.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Coursework/Task1CLRS/floyd_warshall.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Coursework/Task1CLRS/johnson.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Coursework/Task1CLRS/print_all_pairs_shortest_path.py" afterDir="false" />
+    <list default="true" id="5ad0b47a-a490-4522-871a-52be5dded98e" name="Changes" comment="Task 1A Completed Code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coursework/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/main.py" afterDir="false" />
     </list>
@@ -87,7 +83,7 @@
       <updated>1728683142505</updated>
       <workItem from="1728683143555" duration="941000" />
       <workItem from="1728684148107" duration="414000" />
-      <workItem from="1728720263482" duration="4424000" />
+      <workItem from="1728720263482" duration="6704000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <option name="closed" value="true" />
@@ -105,7 +101,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728683459396</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Task 1A Completed Code">
+      <option name="closed" value="true" />
+      <created>1728725952901</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728725952901</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,9 +119,10 @@
     <MESSAGE value="Test" />
     <MESSAGE value="Merge branch 'main' of https://github.com/iTrqzy/UndergroundSystem" />
     <MESSAGE value="Added Coursework Dir" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Coursework Dir" />
+    <MESSAGE value="Task 1A Completed Code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task 1A Completed Code" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/UndergroundSystem$main.coverage" NAME="main Coverage Results" MODIFIED="1728723749742" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework" />
+    <SUITE FILE_PATH="coverage/UndergroundSystem$main.coverage" NAME="main Coverage Results" MODIFIED="1728727679816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework" />
   </component>
 </project>
