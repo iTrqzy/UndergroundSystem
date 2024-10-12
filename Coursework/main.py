@@ -1,7 +1,7 @@
 from Coursework.Task1CLRS.floyd_warshall import floyd_warshall
 import numpy as np
 
-NA = float("inf") # For nodes (Stations) that have no connections with each other.
+NA = float("inf") # For nodes (Stations) that have no connections with each other
 
 """
 ------------------------------
@@ -16,7 +16,7 @@ E   ∞     ∞     ∞     3     0 -
 ------------------------------
 """
 
-train_stations = np.array([ # Create an array that holds the different stations.
+train_stations = np.array([ # Create an array that holds the different stations
     [0,6,NA,12,NA], # Station: A
     [6,0,4,NA,NA], # Station: B
     [NA,4,0,8,NA], # Station: C
@@ -25,6 +25,6 @@ train_stations = np.array([ # Create an array that holds the different stations.
 ])
 
 shortest_paths = floyd_warshall(train_stations,len(train_stations)) # Calls the floyd_warshall function to find -
-                                                                    # the shortest path between stations.
+                                                                    # the shortest path between stations
 
-print(shortest_paths) # Outputs the shortest paths between the nodes.
+print(shortest_paths) # Outputs the shortest paths between the nodes
