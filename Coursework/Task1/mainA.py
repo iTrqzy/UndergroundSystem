@@ -1,4 +1,4 @@
-from Coursework.Task1CLRS.floyd_warshall import floyd_warshall
+from Coursework.Task1.Task1CLRS.floyd_warshall import floyd_warshall
 import numpy as np
 
 NA = float("inf") # For nodes (Stations) that have no connections with each other

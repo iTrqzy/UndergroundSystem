@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad0b47a-a490-4522-871a-52be5dded98e" name="Changes" comment="Fixed Comments">
+      <change afterPath="$PROJECT_DIR$/Coursework/Task1/mainB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coursework/Task1CLRS/all_pairs_shortest_paths.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/Task1CLRS/all_pairs_shortest_paths.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coursework/Task1CLRS/floyd_warshall.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/Task1CLRS/floyd_warshall.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coursework/Task1CLRS/johnson.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/Task1CLRS/johnson.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coursework/Task1CLRS/print_all_pairs_shortest_path.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/Task1CLRS/print_all_pairs_shortest_path.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coursework/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/mainA.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,28 +44,36 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2nJFCKz8tbrYvuqMPk6UqHQHUik" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Python.main.executor": "Run",
+    "Python.mainA.executor": "Run",
+    "Python.mainB.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\ADSCoursework\UndergroundSystem\Coursework\Task1\Task1CLRS" />
+      <recent name="F:\ADSCoursework\UndergroundSystem\Coursework\Task1" />
       <recent name="F:\ADSCoursework\UndergroundSystem\Coursework\Task1CLRS" />
       <recent name="F:\ADSCoursework\UndergroundSystem\Coursework" />
     </key>
@@ -83,6 +97,14 @@
       <workItem from="1728683143555" duration="941000" />
       <workItem from="1728684148107" duration="414000" />
       <workItem from="1728720263482" duration="8279000" />
+      <workItem from="1728731346273" duration="71000" />
+      <workItem from="1728762763189" duration="73000" />
+      <workItem from="1728846833520" duration="4465000" />
+      <workItem from="1728905394178" duration="76000" />
+      <workItem from="1728905542749" duration="34000" />
+      <workItem from="1728908253677" duration="595000" />
+      <workItem from="1728911268463" duration="20000" />
+      <workItem from="1728916079803" duration="21698000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <option name="closed" value="true" />
@@ -116,7 +138,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728728604928</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fixed Comments">
+      <option name="closed" value="true" />
+      <created>1728731373434</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728731373435</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,6 +161,8 @@
     <option name="LAST_COMMIT_MESSAGE" value="Fixed Comments" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/UndergroundSystem$main.coverage" NAME="main Coverage Results" MODIFIED="1728729276548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework" />
+    <SUITE FILE_PATH="coverage/UndergroundSystem$main.coverage" NAME="main Coverage Results" MODIFIED="1728762798413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework" />
+    <SUITE FILE_PATH="coverage/UndergroundSystem$mainA.coverage" NAME="mainA Coverage Results" MODIFIED="1728922362044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework/Task1" />
+    <SUITE FILE_PATH="coverage/UndergroundSystem$mainB.coverage" NAME="mainB Coverage Results" MODIFIED="1728936111931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework/Task1" />
   </component>
 </project>
