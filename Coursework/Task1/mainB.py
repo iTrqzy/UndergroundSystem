@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     # Theoretical O(n^3) time complexity
     # This is the expected time complexity for Floyd-Warshall algorithm. Scaling for comparison
-    theoretical_times = [(n ** 3) / 10 ** 7 for n in test_cases]  # Adjust scaling for better visual comparison
+    theoretical_times = [(n ** 3) / 10 ** 7 for n in test_cases]
 
     # Plot the empirical data
     plt.plot(test_cases, execution_times, marker='o', linestyle='-', color='b', label='Empirical Time')

@@ -26,5 +26,5 @@ train_stations = np.array([ # Create an array that holds the different stations
 
 shortest_paths = floyd_warshall(train_stations,len(train_stations)) # Calls the floyd_warshall function to find -
                                                                     # the shortest path between stations
-
+print("Shortest path in terms of minutes: ")
 print(shortest_paths) # Outputs the shortest paths between the nodes

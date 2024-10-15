@@ -4,14 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ad0b47a-a490-4522-871a-52be5dded98e" name="Changes" comment="Fixed Comments">
-      <change afterPath="$PROJECT_DIR$/Coursework/Task1/mainB.py" afterDir="false" />
+    <list default="true" id="5ad0b47a-a490-4522-871a-52be5dded98e" name="Changes" comment="Completed Task 1B">
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/adjacency_list_graph.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/adjacency_matrix_graph.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/bellman_ford.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/dag_shortest_paths.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/difference_constraints.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/dijkstra.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/dll_sentinel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/generate_random_graph.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/heap.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/heap_priority_queue.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/key_object.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/min_heap_priority_queue.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/Task2CLRS/single_source_shortest_paths.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/mainA.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/mainB.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Coursework/Task2/mainB2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coursework/Task1CLRS/all_pairs_shortest_paths.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/Task1CLRS/all_pairs_shortest_paths.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coursework/Task1CLRS/floyd_warshall.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/Task1CLRS/floyd_warshall.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coursework/Task1CLRS/johnson.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/Task1CLRS/johnson.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coursework/Task1CLRS/print_all_pairs_shortest_path.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/Task1CLRS/print_all_pairs_shortest_path.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coursework/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/mainA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coursework/Task1/mainA.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/mainA.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coursework/Task1/mainB.py" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework/Task1/mainB.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +69,7 @@
     "Python.main.executor": "Run",
     "Python.mainA.executor": "Run",
     "Python.mainB.executor": "Run",
+    "Python.mainB2.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
@@ -72,6 +85,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\ADSCoursework\UndergroundSystem\Coursework\Task2\Task2CLRS" />
       <recent name="F:\ADSCoursework\UndergroundSystem\Coursework\Task1\Task1CLRS" />
       <recent name="F:\ADSCoursework\UndergroundSystem\Coursework\Task1" />
       <recent name="F:\ADSCoursework\UndergroundSystem\Coursework\Task1CLRS" />
@@ -104,7 +118,9 @@
       <workItem from="1728905542749" duration="34000" />
       <workItem from="1728908253677" duration="595000" />
       <workItem from="1728911268463" duration="20000" />
-      <workItem from="1728916079803" duration="21698000" />
+      <workItem from="1728916079803" duration="22557000" />
+      <workItem from="1728941137527" duration="18000" />
+      <workItem from="1728987561766" duration="4317000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <option name="closed" value="true" />
@@ -146,7 +162,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728731373435</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Completed Task 1B">
+      <option name="closed" value="true" />
+      <created>1728940758135</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728940758135</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -158,11 +182,24 @@
     <MESSAGE value="Added Coursework Dir" />
     <MESSAGE value="Task 1A Completed Code" />
     <MESSAGE value="Fixed Comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Comments" />
+    <MESSAGE value="Completed Task 1B" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed Task 1B" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/UndergroundSystem$main.coverage" NAME="main Coverage Results" MODIFIED="1728762798413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework" />
-    <SUITE FILE_PATH="coverage/UndergroundSystem$mainA.coverage" NAME="mainA Coverage Results" MODIFIED="1728922362044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework/Task1" />
-    <SUITE FILE_PATH="coverage/UndergroundSystem$mainB.coverage" NAME="mainB Coverage Results" MODIFIED="1728936111931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework/Task1" />
+    <SUITE FILE_PATH="coverage/UndergroundSystem$mainA.coverage" NAME="mainA Coverage Results" MODIFIED="1728992305455" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework/Task2" />
+    <SUITE FILE_PATH="coverage/UndergroundSystem$mainB.coverage" NAME="mainB Coverage Results" MODIFIED="1728992737992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework/Task2" />
+    <SUITE FILE_PATH="coverage/UndergroundSystem$mainB2.coverage" NAME="mainB2 Coverage Results" MODIFIED="1728992716391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Coursework/Task2" />
   </component>
 </project>
