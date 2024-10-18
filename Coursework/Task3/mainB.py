@@ -1,99 +1,105 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-from dijkstra import dijkstra  # Provided Dijkstra function
+from dijkstra import dijkstra  # Import the Dijkstra function
 
-# Define a constant for infinite distance
-NA = float('inf')
 
-# Function to create adjacency matrix from the London Underground data
-def create_adjacency_matrix(df, station_list):
-    n = len(station_list)
-    matrix = np.full((n, n), NA)
-
-    station_index = {station: idx for idx, station in enumerate(station_list)}
-
-    for _, row in df.iterrows():
-        station1 = row['Station1'].strip()
-        station2 = row['Station2'].strip()
-        if station1 in station_index and station2 in station_index:
-            idx1, idx2 = station_index[station1], station_index[station2]
-            matrix[idx1][idx2] = 1  # 1 stop between stations
-            matrix[idx2][idx1] = 1  # Symmetric
-
-    np.fill_diagonal(matrix, 0)  # Set diagonal to 0 (no stop within the same station)
-    return matrix, station_index
-
-# Convert adjacency matrix to the expected graph format for Dijkstra
-def convert_matrix_to_graph(matrix):
+# Step 1: Build the graph as a dictionary with journey durations as edge weights
+def build_graph(london_underground_data):
     graph = {}
-    n = len(matrix)
-    for i in range(n):
-        graph[i] = {}
-        for j in range(n):
-            if matrix[i][j] != NA:
-                graph[i][j] = matrix[i][j]
-    return graph
+    stations = london_underground_data.iloc[:, 1].dropna().unique()
+    station_indices = {station: i for i, station in enumerate(stations)}
 
-# Function to find the longest path in terms of stops using the provided Dijkstra function
-def find_longest_path_by_stops(matrix, station_index):
-    graph = convert_matrix_to_graph(matrix)  # Convert matrix to graph format
-    longest_distance = 0
-    longest_path = []
+    for _, row in london_underground_data.iterrows():
+        station1 = row['Station1']
+        station2 = row['Station2']
+        duration = row['Journey_Duration']
 
-    for start_station in station_index.values():
-        distances, predecessors = dijkstra(graph, start_station)  # Use the provided Dijkstra function
-        max_distance = max(distances)
+        if station1 in station_indices and station2 in station_indices:
+            current_idx = station_indices[station1]
+            next_idx = station_indices[station2]
 
-        if max_distance < float('inf') and max_distance > longest_distance:
-            longest_distance = max_distance
-            end_station = np.argmax(distances)
-            longest_path = reconstruct_path(predecessors, start_station, end_station, station_index)
+            # Add connections bidirectionally with journey duration as the weight
+            if current_idx not in graph:
+                graph[current_idx] = []
+            if next_idx not in graph:
+                graph[next_idx] = []
 
-    return longest_distance, longest_path
+            graph[current_idx].append((next_idx, duration))  # Use journey duration as weight
+            graph[next_idx].append((current_idx, duration))
 
-# Function to reconstruct the path from predecessors returned by Dijkstra
-def reconstruct_path(predecessors, start, end, station_index):
-    reverse_station_index = {v: k for k, v in station_index.items()}
+    return graph, stations
+
+
+# Step 2: Create a minimal wrapper to provide the required methods for Dijkstra
+class MinimalGraphWrapper:
+    def __init__(self, graph):
+        self.graph = graph
+
+    def get_card_V(self):
+        return len(self.graph)  # Return the number of vertices
+
+    def get_adj_list(self, u):
+        return [Edge(v, w) for v, w in self.graph.get(u, [])]
+
+
+class Edge:
+    def __init__(self, v, weight):
+        self.v = v
+        self.weight = weight
+
+    def get_v(self):
+        return self.v
+
+    def get_weight(self):
+        return self.weight
+
+
+# Step 3: Reconstruct the path using the predecessor list
+def reconstruct_path(pi, source, destination, stations):
     path = []
-    while end is not None:
-        path.insert(0, reverse_station_index[end])
-        end = predecessors[end]
+    current = destination
+    while current != source:
+        path.append(stations[current])
+        current = pi[current]
+    path.append(stations[source])
+    path.reverse()  # Reverse to get the correct order
     return path
 
-# Function to plot the histogram of journey durations (in terms of stops)
-def plot_histogram(matrix):
-    journey_durations = []
 
-    graph = convert_matrix_to_graph(matrix)  # Convert the matrix to graph format
-    for i in range(len(matrix)):
-        distances, _ = dijkstra(graph, i)
-        journey_durations.extend([d for d in distances if d < float('inf')])  # Exclude infinite values
+# Step 4: Find the longest journey by time (minutes)
+def find_longest_journey(graph, stations):
+    wrapped_graph = MinimalGraphWrapper(graph)
+    longest_journey = {'distance': 0, 'path': []}
 
-    plt.figure(figsize=(10, 6))
-    plt.hist(journey_durations, bins=20, color='blue', edgecolor='black')
-    plt.title('Histogram of Journey Durations (Number of Stops)')
-    plt.xlabel('Number of Stops')
-    plt.ylabel('Frequency')
-    plt.show()
+    for station_index, station_name in enumerate(stations):
+        d, pi = dijkstra(wrapped_graph, station_index)  # Run Dijkstra from this station
 
-# Load the London Underground data
+        # Check all destinations to find the longest journey by time
+        for destination_index, distance in enumerate(d):
+            if distance != float('inf') and distance > longest_journey['distance']:
+                # Found a longer journey, reconstruct the path
+                path = reconstruct_path(pi, station_index, destination_index, stations)
+                longest_journey['distance'] = distance
+                longest_journey['path'] = path
+
+    return longest_journey
+
+
+# Step 5: Load the London Underground data and build the graph
 file_path = 'London Underground data.xlsx'
-data = pd.read_excel(file_path, sheet_name='Sheet1')
-data.columns = ["Line", "Station1", "Station2", "Journey_Duration"]
+london_underground_data = pd.read_excel(file_path, sheet_name='Sheet1')
 
-# Drop rows with NaN values
-cleaned_data = data.dropna()
+# Rename columns appropriately
+london_underground_data.columns = ["Line", "Station1", "Station2", "Journey_Duration"]
 
-# Get a unique list of stations
-stations = pd.concat([cleaned_data['Station1'], cleaned_data['Station2']]).unique()
+# Step 6: Clean the data by removing rows with missing journey durations
+cleaned_data = london_underground_data.dropna(subset=["Station2", "Journey_Duration"]).copy()
 
-# Create the adjacency matrix based on stops
-stops_matrix, station_index = create_adjacency_matrix(cleaned_data, stations)
+# Step 7: Build the graph with journey durations as weights
+graph, stations = build_graph(cleaned_data)
 
-# Find the longest journey by number of stops
-longest_distance, longest_path = find_longest_path_by_stops(stops_matrix, station_index)
-print(f"Longest journey is {longest_distance} stops long, path: {longest_path}")
+# Step 8: Find the longest journey by time and print the results
+longest_journey_info = find_longest_journey(graph, stations)
 
-# Plot histogram of the number of stops
-plot_histogram(stops_matrix)
+print(f"Longest journey takes {longest_journey_info['distance']} minutes.")
+print(f"Path: {' -> '.join(longest_journey_info['path'])}")
