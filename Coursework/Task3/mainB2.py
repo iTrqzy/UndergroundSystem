@@ -36,10 +36,14 @@ for index, row in cleaned_data.iterrows():  # Use 'index' instead of '_'
 journey_lengths = []
 
 # Calculate journey lengths (in terms of number of stops) for all station pairs
-for index1 in range(num_stations):
-    distances, predecessors = dijkstra(graph, index1)  # Assign the second value to 'predecessors'
-    for index2 in range(num_stations):
+# This nested loop structure allows us to consider every possible pair of stations
+for index1 in range(num_stations):  # Iterate over all stations as potential starting points
+    distances, predecessors = dijkstra(graph, index1)  # Run Dijkstra's algorithm from the current starting station
+    for index2 in range(num_stations):  # Iterate over all stations as potential ending points
+        # Check if the distance to the current ending station is not reachable
+        # and if the starting and ending stations are not the same
         if distances[index2] != float('inf') and index1 != index2:
+            # Append the journey length (in terms of number of stops) and the starting/ending station indices to the list
             journey_lengths.append((distances[index2], index1, index2))
 
 # Function to extract the first element of a tuple (for max comparison)
