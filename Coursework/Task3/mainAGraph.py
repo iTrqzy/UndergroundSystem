@@ -1,19 +1,26 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Load the Excel file and select the relevant sheet
-file_path = 'London Underground data.xlsx'
-london_underground_data = pd.read_excel(file_path, sheet_name='Sheet1')
+file = 'London Underground data.xlsx'  # File path for the Excel file
+underground_data = pd.read_excel(file, sheet_name='Sheet1')  # Load data from the first sheet
 
-# Rename columns for easier reference
-london_underground_data.columns = ["Line", "Station1", "Station2", "Journey_Duration"]
+underground_data.columns = ["Line", "Station_A", "Station_B", "Duration"]  # Rename columns for easier use
 
-# Create a histogram to visualize journey durations
-plt.figure(figsize=(10, 6))
-plt.hist(london_underground_data['Journey_Duration'], bins=20, color='green', edgecolor='black')
-plt.title('Histogram of Journey Durations')
+# Convert 'Duration' to numeric and handle non-numeric values (convert them to NaN)
+underground_data['Duration'] = pd.to_numeric(underground_data['Duration'], errors='coerce')
+
+# Drop rows where 'Duration' is missing or invalid
+underground_data.dropna(subset=['Duration'], inplace=True)
+
+# Create a range of bins based on the min and max duration
+duration_bins = range(int(underground_data['Duration'].min()), int(underground_data['Duration'].max()) + 1)
+
+plt.figure(figsize=(10, 6))  # Set the plot size
+plt.hist(underground_data['Duration'], bins=duration_bins, color='green', edgecolor='black', align='left')  # Create the histogram
+
+# Add labels and title
+plt.title('London Underground Journey Duration Distribution')
 plt.xlabel('Journey Duration (Minutes)')
 plt.ylabel('Frequency')
 
-# Show the plot
-plt.show()
+plt.show()  # Display the plot

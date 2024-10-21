@@ -14,7 +14,7 @@ total_stops = clean_data.groupby(['Station1', 'Station2']).size()
 
 # Plot a histogram to visualize the number of stops
 plt.figure(figsize=(10, 6))
-plt.hist(total_stops, bins=20, color='green', edgecolor='black')
+plt.hist(total_stops, bins=20, color='green', edgecolor='black', align='mid')  # Align bars to the center
 plt.title('Histogram of Number of Stops Between Stations')
 plt.xlabel('Number of Stops')
 plt.ylabel('Frequency')

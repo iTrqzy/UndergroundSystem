@@ -1,13 +1,14 @@
 import pandas as pd
-from dijkstra import dijkstra  # Import the Dijkstra function from your module
+from dijkstra import dijkstra  # Custom Dijkstra function
 from adjacency_list_graph import AdjacencyListGraph
+from print_path import print_path  # Function to print the journey path
 
-# Load data from the Excel file
-file_path = 'London Underground data.xlsx'
-data = pd.read_excel(file_path, sheet_name=None)  # Load all sheets
-station_data = data['Sheet1']  # Use only the first sheet
+# Load the data from the Excel file
+file = 'London Underground data.xlsx'
+sheets = pd.read_excel(file, sheet_name=None)  # Load all sheets
+station_data = sheets['Sheet1']  # We'll work with the first sheet
 
-# Clean the data by dropping any rows with missing values
+# Clean the data by dropping rows with missing values
 clean_data = station_data.dropna()
 
 # Rename columns for easier access
@@ -17,41 +18,53 @@ clean_data.columns = ["Line", "From_Station", "To_Station", "Journey_Time"]
 station_names = list(pd.concat([clean_data['From_Station'], clean_data['To_Station']]).unique())
 station_indices = {name: idx for idx, name in enumerate(station_names)}
 
-# Create the graph as an AdjacencyListGraph
+# Set up the graph (undirected and weighted since journeys are bidirectional)
 num_stations = len(station_names)
-graph = AdjacencyListGraph(num_stations, directed=True, weighted=True)
+graph = AdjacencyListGraph(num_stations, directed=False, weighted=True)
 
-# Loop through each row of the data to build the graph
+# Build the graph by adding edges (connections between stations)
 for _, row in clean_data.iterrows():
     from_idx = station_indices[row['From_Station']]
     to_idx = station_indices[row['To_Station']]
     journey_time = row['Journey_Time']
 
-    # Check if the edge already exists to avoid duplicate edges
-    existing_edges = graph.get_adj_list(from_idx)
-    if any(edge.get_v() == to_idx for edge in existing_edges):
-        print(f"Edge from {from_idx} to {to_idx} already exists. Skipping...")
+    # Skip duplicate edges to avoid redundant connections
+    if graph.has_edge(from_idx, to_idx):
         continue
 
-    # Insert the edge into the adjacency list graph
+    # Insert the edge into the graph, with the journey time as the weight
     graph.insert_edge(from_idx, to_idx, journey_time)
 
-# Find the longest journey by comparing journey times
-longest_path = clean_data.loc[clean_data['Journey_Time'].idxmax()]
-print(
-    f'Longest Journey: From {longest_path["From_Station"]} to {longest_path["To_Station"]} - Duration: {longest_path["Journey_Time"]} minutes.')
 
-if __name__ == "__main__":
-    # Pick the first station in the graph as the starting point
-    starting_station = list(station_indices.keys())[0]
-    starting_index = station_indices[starting_station]
+# Helper function to map station indices back to station names
+def map_station(index):
+    return station_names[index]
 
-    # Run Dijkstra's algorithm from the starting station
-    distances, predecessors = dijkstra(graph, starting_index)
 
-    # Print the shortest distances and paths from the starting station
-    for station, idx in station_indices.items():
-        distance = distances[idx]
-        predecessor_idx = predecessors[idx]
-        predecessor = station_names[predecessor_idx] if predecessor_idx is not None else "None"
-        print(f"Station: {station}, Distance: {distance}, Predecessor: {predecessor}")
+# Function to find the longest journey across all stations
+def find_longest_journey():
+    max_distance = -1  # Initialize to a very low number
+    longest_path = None
+    source_station = None
+    target_station = None
+
+    # Try Dijkstra's from every station and check the longest journey
+    for start_idx, station_name in enumerate(station_names):
+        distances, predecessors = dijkstra(graph, start_idx)
+
+        # Check all distances to find the farthest reachable station
+        for end_idx, distance in enumerate(distances):
+            if distance > max_distance and distance != float('inf'):
+                max_distance = distance
+                source_station = start_idx
+                target_station = end_idx
+                longest_path = print_path(predecessors, source_station, target_station, map_station)
+
+    return max_distance, longest_path
+
+
+# Find and print the longest journey
+longest_duration, longest_path = find_longest_journey()
+
+print(f"Longest Journey Duration: {longest_duration} minutes")
+print(f"Path: {' → '.join(longest_path)}")
