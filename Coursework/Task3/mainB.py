@@ -68,4 +68,3 @@ plt.title('Histogram of Journey Durations by Number of Stops')
 plt.xlabel('Number of Stops')
 plt.ylabel('Frequency')
 plt.show()
-$
