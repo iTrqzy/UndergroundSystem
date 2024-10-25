@@ -1,5 +1,5 @@
 import pandas as pd
-from dijkstra import dijkstra  # Import the Dijkstra function from your custom module
+from UndergroundSystem.Coursework.Task4.dijkstra import dijkstra  # Import the Dijkstra function from your custom module
 from adjacency_list_graph import AdjacencyListGraph  # Import the graph implementation
 
 # Load data from the Excel file (all sheets into a dictionary)

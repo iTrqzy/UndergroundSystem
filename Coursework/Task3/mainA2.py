@@ -1,7 +1,7 @@
 import pandas as pd
-from dijkstra import dijkstra  # Custom Dijkstra function
+from UndergroundSystem.Coursework.Task4.dijkstra import dijkstra  # Custom Dijkstra function
 from adjacency_list_graph import AdjacencyListGraph
-from print_path import print_path  # Function to print the journey path
+from UndergroundSystem.Coursework.Task4.print_path import print_path  # Function to print the journey path
 
 # Load the data from the Excel file
 file = 'London Underground data.xlsx'

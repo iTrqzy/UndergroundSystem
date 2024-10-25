@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from adjacency_list_graph import AdjacencyListGraph
-from dijkstra import dijkstra
+from UndergroundSystem.Coursework.Task4.dijkstra import dijkstra
 
 # Load the data from the Excel file
 excel_file_path = 'London Underground data.xlsx'

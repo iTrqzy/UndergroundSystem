@@ -2,67 +2,57 @@ import pandas as pd
 from adjacency_list_graph import AdjacencyListGraph
 from mst import kruskal, print_undirected_edges, get_total_weight
 
-def load_underground_data(file_path):
-    """
-    Load and clean the Excel data for the London Underground.
-    Drops any rows without journey time data.
-    """
-    underground_data = pd.read_excel(file_path)
-    underground_data.columns = ['Line', 'Start Station', 'End Station', 'Journey Time']
-    cleaned_data = underground_data.dropna(subset=['Journey Time'])
-    return cleaned_data
+def load_data(file_path):  # Load the London Underground data from Excel and remove rows missing journey times.
+    data = pd.read_excel(file_path)
+    data.columns = ['Line', 'Start Station', 'End Station', 'Journey Time']
+    data = data.dropna(subset=['Journey Time'])  # Remove rows with missing journey times
+    return data
 
-def create_station_graph(cleaned_data):
-    """
-    Build an adjacency list graph from the cleaned station data.
-    Each unique station is a node, and connections with journey times are weighted edges.
-    """
-    stations = list(set(cleaned_data['Start Station']).union(set(cleaned_data['End Station'])))
-    station_to_index = {station: idx for idx, station in enumerate(stations)}
-    total_stations = len(stations)
+def build_graph(data):  # Create a graph where each station is a node and each connection is an edge
+    stations = list(set(data['Start Station']).union(set(data['End Station'])))  # Create a unique list of stations
 
-    station_graph = AdjacencyListGraph(total_stations, weighted=True, directed=False)
-    graph_edges = []
+    station_to_index = {}  # Map each station to an index
+    for index, station in enumerate(stations):
+        station_to_index[station] = index
 
-    for _, row in cleaned_data.iterrows():
-        start_idx = station_to_index[row['Start Station']]
-        end_idx = station_to_index[row['End Station']]
+    graph = AdjacencyListGraph(len(stations), weighted=True, directed=False)  # Initialize the graph
+    edges = []  # List to hold edges
+
+    for _, row in data.iterrows():  # Add each connection (edge) to the graph
+        start = station_to_index[row['Start Station']]
+        end = station_to_index[row['End Station']]
         journey_time = row['Journey Time']
 
-        if not station_graph.has_edge(start_idx, end_idx):
-            station_graph.insert_edge(start_idx, end_idx, journey_time)
-            graph_edges.append((start_idx, end_idx, journey_time))
+        if graph.has_edge(start, end) == False:  # Add the edge only if it does not already exist
+            graph.insert_edge(start, end, journey_time)
+            edges.append((start, end, journey_time))
 
-    return station_graph, graph_edges, stations
+    return graph, edges, stations
 
-def find_closable_line_sections(station_graph, graph_edges, stations):
-    """
-    Use Kruskal's algorithm to find the Minimum Spanning Tree (MST).
-    Determine which edges (line sections) can be closed without breaking connectivity.
-    """
-    mst = kruskal(station_graph)
+def find_redundant_connections(graph, edges, stations):  # Identify essential connections using Kruskal's algorithm
+    mst = kruskal(graph)  # Generate the Minimum Spanning Tree (MST)
 
-    closable_sections = [
-        (stations[start_idx], stations[end_idx])
-        for start_idx, end_idx, _ in graph_edges
-        if not mst.has_edge(start_idx, end_idx)
-    ]
+    removable_connections = []  # Initialize a list to hold removable connections
 
-    return closable_sections, mst
+    for start, end, _ in edges:  # Check each edge in the original list of edges
+        if not mst.has_edge(start, end):  # If the edge is not in the MST, it can be removed
+            removable_connections.append((stations[start], stations[end]))
+
+    return removable_connections, mst
 
 if __name__ == "__main__":
     file_path = 'London Underground Data.xlsx'
 
-    cleaned_data = load_underground_data(file_path)
-    station_graph, graph_edges, stations = create_station_graph(cleaned_data)
+    data = load_data(file_path)  # Load and prepare the data
+    graph, edges, stations = build_graph(data)  # Build the graph from the data
 
-    closable_routes, mst = find_closable_line_sections(station_graph, graph_edges, stations)
+    removable_routes, mst = find_redundant_connections(graph, edges, stations)  # Find connections that could be removed
 
-    print("Line Sections That Can Be Closed:")
-    for start, end in closable_routes:
+    print("Connections That Can Be Removed:")  # Display the removable connections
+    for start, end in removable_routes:
         print(f"{start} - {end}")
 
-    print("\nMinimum Spanning Tree (MST) Edges:")
+    print("\nEssential Connections (MST):")  # Display the essential connections in the MST
     print_undirected_edges(mst, stations)
-    mst_weight = get_total_weight(mst)
-    print(f"\nTotal Journey Time of MST: {mst_weight}")
+    total_time = get_total_weight(mst)  # Calculate the total journey time of essential connections
+    print(f"\nTotal Journey Time of Essential Connections: {total_time}")
