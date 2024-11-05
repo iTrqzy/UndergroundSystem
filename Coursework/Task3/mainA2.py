@@ -22,24 +22,26 @@ station_indices = {name: idx for idx, name in enumerate(station_names)}
 num_stations = len(station_names)
 graph = AdjacencyListGraph(num_stations, directed=False, weighted=True)
 
+# Initialize a counter for the number of unique journeys
+unique_journey_count = 0
+
 # Build the graph by adding edges (connections between stations)
 for _, row in clean_data.iterrows():
     from_idx = station_indices[row['From_Station']]
     to_idx = station_indices[row['To_Station']]
     journey_time = row['Journey_Time']
 
-    # Skip duplicate edges to avoid redundant connections
-    if graph.has_edge(from_idx, to_idx):
-        continue
+    # Only add the edge if it doesn't already exist to avoid duplicates
+    if not graph.has_edge(from_idx, to_idx):
+        graph.insert_edge(from_idx, to_idx, journey_time)
+        unique_journey_count += 1  # Increment the counter for each unique journey
 
-    # Insert the edge into the graph, with the journey time as the weight
-    graph.insert_edge(from_idx, to_idx, journey_time)
-
+# Output the number of unique journeys
+print(f"Number of unique journeys: {unique_journey_count}")
 
 # Helper function to map station indices back to station names
 def map_station(index):
     return station_names[index]
-
 
 # Function to find the longest journey across all stations
 def find_longest_journey():
@@ -61,7 +63,6 @@ def find_longest_journey():
                 longest_path = print_path(predecessors, source_station, target_station, map_station)
 
     return max_distance, longest_path
-
 
 # Find and print the longest journey
 longest_duration, longest_path = find_longest_journey()

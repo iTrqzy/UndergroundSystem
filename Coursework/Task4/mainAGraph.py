@@ -1,42 +1,48 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from adjacency_list_graph import AdjacencyListGraph
-from mst import kruskal, get_total_weight, print_undirected_edges
+from mst import kruskal, get_total_weight
+from dijkstra import dijkstra  # Assuming Dijkstra's algorithm is available in a module
 
-def load_data(file_path):  # Load and clean the London Underground data from Excel
+def load_data(file_path):  # Load the London Underground data from Excel and remove rows missing journey times.
     data = pd.read_excel(file_path)
     data.columns = ['Line', 'Start Station', 'End Station', 'Journey Time']
     data = data.dropna(subset=['Journey Time'])  # Remove rows with missing journey times
     return data
 
-def build_graph(data):  # Build a graph where stations are nodes and connections are edges
-    stations = list(set(data['Start Station']).union(set(data['End Station'])))  # Unique stations
-    station_to_index = {station: index for index, station in enumerate(stations)}  # Map stations to indices
-    graph = AdjacencyListGraph(len(stations), weighted=True, directed=False)  # Initialize the graph
-    edges = []  # List to store the edges
+def build_graph(data):  # Create a graph where each station is a node and each connection is an edge
+    stations = list(set(data['Start Station']).union(set(data['End Station'])))  # Create a unique list of stations
 
-    for _, row in data.iterrows():  # Add edges for each connection in the data
+    station_to_index = {station: index for index, station in enumerate(stations)}
+    graph = AdjacencyListGraph(len(stations), weighted=True, directed=False)  # Initialize the graph
+    edges = []  # List to hold edges
+
+    for _, row in data.iterrows():  # Add each connection (edge) to the graph
         start = station_to_index[row['Start Station']]
         end = station_to_index[row['End Station']]
         journey_time = row['Journey Time']
 
-        if not graph.has_edge(start, end):  # Add only if the edge doesn't already exist
+        if not graph.has_edge(start, end):  # Add the edge only if it does not already exist
             graph.insert_edge(start, end, journey_time)
             edges.append((start, end, journey_time))
 
     return graph, edges, stations
 
-def get_edge_weight(graph, start, end):  # Get the weight (journey time) for an edge
-    edge = graph.find_edge(start, end)
-    if edge:
-        return edge.get_weight()  # Return the weight if the edge exists
-    return None  # Return None if no edge is found
+def get_mst_journey_times(mst, num_stations):
+    journey_times = []
 
-def plot_journey_distribution(journey_times):  # Plot a histogram of journey durations
+    # Run Dijkstra's algorithm on the MST from each station to find all-pairs shortest paths
+    for start in range(num_stations):
+        distances, _ = dijkstra(mst, start)
+        # Collect journey times from the shortest paths
+        journey_times.extend([dist for dist in distances if dist != float('inf') and dist > 0])
+
+    return journey_times
+
+def plot_journey_distribution(journey_times):  # Plot a histogram of journey times
     plt.figure(figsize=(10, 6))
-    plt.hist(journey_times, bins=range(int(min(journey_times)), int(max(journey_times)) + 1),
-             color='green', edgecolor='black', align='left')
-    plt.title('London Underground Journey Duration Distribution (MST)')
+    plt.hist(journey_times, bins=range(0, int(max(journey_times)) + 1), color='steelblue', edgecolor='black', linewidth=0.5)
+    plt.title('Histogram of Possible Journey Durations by Minutes (MST)')
     plt.xlabel('Journey Duration (Minutes)')
     plt.ylabel('Frequency')
     plt.show()
@@ -44,30 +50,18 @@ def plot_journey_distribution(journey_times):  # Plot a histogram of journey dur
 if __name__ == "__main__":
     file_path = 'London Underground Data.xlsx'
 
-    # Load the data and build the graph
+    # Load and prepare the data
     data = load_data(file_path)
+
+    # Build the full graph from the data
     graph, edges, stations = build_graph(data)
 
-    # Find the Minimum Spanning Tree (MST) using Kruskal's algorithm
+    # Generate the MST and get essential connections only
     mst = kruskal(graph)
+    num_stations = len(stations)
 
-    # Extract journey times from the MST
-    mst_edges = mst.get_edge_list()  # Get the MST edges
+    # Extract journey times by finding shortest paths on the MST
+    journey_times = get_mst_journey_times(mst, num_stations)
 
-    journey_times = []
-    for edge in mst_edges:
-        if len(edge) == 3:  # Edge includes (start, end, weight)
-            _, _, weight = edge
-        elif len(edge) == 2:  # Edge includes only (start, end)
-            start, end = edge
-            weight = get_edge_weight(graph, start, end)  # Get the weight using the graph's method
-        journey_times.append(weight)
-
-    # Plot the distribution of journey durations
+    # Plot the histogram of journey durations
     plot_journey_distribution(journey_times)
-
-    # Print the essential connections in the MST and the total journey time
-    print("\nEssential Connections (MST):")
-    print_undirected_edges(mst, stations)
-    total_time = get_total_weight(mst)
-    print(f"\nTotal Journey Time of Essential Connections: {total_time}")

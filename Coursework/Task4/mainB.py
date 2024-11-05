@@ -1,7 +1,7 @@
 import pandas as pd
 from dijkstra import dijkstra  # Custom Dijkstra function
 from adjacency_list_graph import AdjacencyListGraph
-from mst import kruskal, get_total_weight
+from mst import kruskal
 from print_path import print_path  # Function to print the journey path
 
 def load_data(file_path):  # Load and clean the London Underground data

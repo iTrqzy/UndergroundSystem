@@ -12,7 +12,7 @@ underground_data.columns = ["Line_Name", "Starting_Station", "Ending_Station", "
 
 # Create a list of unique stations and initialize the graph
 unique_stations = list(set(underground_data["Starting_Station"].tolist() + underground_data["Ending_Station"].tolist()))
-station_graph = AdjacencyListGraph(len(unique_stations), directed=False, weighted=True)
+station_graph = AdjacencyListGraph(len(unique_stations), directed=False, weighted=1)
 
 # Create a dictionary to map station names to numerical indices
 station_to_index = {}
@@ -60,6 +60,9 @@ def get_stops_between_all_stations(station_graph, unique_stations):
 
 # Calculate the number of stops for all station pairs
 stops_between_stations = get_stops_between_all_stations(station_graph, unique_stations)
+
+# Output the total number of journey durations calculated
+print(f"Total number of journey durations calculated: {len(stops_between_stations)}")
 
 # Plot the histogram of stops
 plt.figure(figsize=(10, 6))

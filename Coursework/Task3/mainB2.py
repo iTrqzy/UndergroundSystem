@@ -21,7 +21,7 @@ station_to_index = {station: i for i, station in enumerate(stations)}
 
 # Initialize the graph (directed and weighted)
 num_stations = len(stations)
-graph = AdjacencyListGraph(num_stations, directed=True, weighted=True)
+graph = AdjacencyListGraph(num_stations, directed=False, weighted=True)
 
 # Build the graph by adding edges based on the data
 for idx, row in cleaned_data.iterrows():
@@ -32,8 +32,8 @@ for idx, row in cleaned_data.iterrows():
     if not any(edge.get_v() == end_idx for edge in graph.get_adj_list(start_idx)):
         graph.insert_edge(start_idx, end_idx, 1)  # Add an edge for each stop
 
-# Find the longest journey by calculating journey durations using Dijkstra's algorithm
-journey_durations = []  # List to store journey lengths and station indices
+# List to store journey durations, including duplicates (counting each direction separately)
+journey_durations = []
 
 # Calculate the journey length between all station pairs
 for start in range(num_stations):
@@ -41,13 +41,16 @@ for start in range(num_stations):
     for end in range(num_stations):
         # If a valid path exists and the stations aren't the same
         if distances[end] != float('inf') and start != end:
-            journey_durations.append((distances[end], start, end))  # Add the distance and station indices
+            # Add the journey to the list, counting each direction separately
+            journey_durations.append((distances[end], start, end))
 
+# Total number of journeys, including duplicates
+total_journeys = len(journey_durations)
+print(f"Total number of journeys (including duplicates): {total_journeys}")
 
 # Function to get the journey length (for finding max)
 def get_journey_length(journey):
     return journey[0]
-
 
 # Find the longest journey (in terms of stops) and the stations involved
 longest_duration, start_station_idx, end_station_idx = max(journey_durations, key=get_journey_length)
